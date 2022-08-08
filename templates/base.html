@@ -26,16 +26,22 @@
 
 <hr>
 
+<div class="card">
+    <div class="card-body">
+        {% bootstrap_messages %}
 
-
-<div class="container">
-    {% block content %}
-    {% endblock %}
+        {% block content %}
+        {% endblock %}
+    </div>
 </div>
+
 <hr>
 {% url 'blog:post_list' as list_path %}
 {% if not request.path == list_path %}
     <a href="{% url "blog:post_list"%}">목록으로</a>
+{% endif %}
+{% if user.is_authenticated %}
+    <a href="{% url "blog:post_create" %}">글쓰기</a>
 {% endif %}
 
 <hr>
