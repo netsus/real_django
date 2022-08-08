@@ -22,3 +22,5 @@ login = MyLoginView.as_view()
 
 class MyLogoutView(LogoutView):
     pass
+
+logout=MyLogoutView.as_view()

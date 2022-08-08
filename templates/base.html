@@ -13,12 +13,30 @@
 <body>
 <h1>Django is Amazing!</h1>
 <hr>
+<div class="navbar-nav gap-1">
+    {% if user.is_authenticated %}
+        <a href="{% url "accounts:logout" %}">로그아웃</a>
+    {% else %}
+        {% url 'accounts:login' as login_path %}
+        {% if not request.path == login_path %}
+            <a href="{% url "accounts:login" %}">로그인</a>
+        {% endif %}
+    {% endif %}
+</div>
+
+<hr>
+
 
 
 <div class="container">
     {% block content %}
     {% endblock %}
 </div>
+<hr>
+{% url 'blog:post_list' as list_path %}
+{% if not request.path == list_path %}
+    <a href="{% url "blog:post_list"%}">목록으로</a>
+{% endif %}
 
 <hr>
 &copy; 2022 Pythonistar

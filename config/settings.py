@@ -83,6 +83,10 @@ DATABASES = {
     }
 }
 
+# 커스텀 User 모델 대체하기
+# https://docs.djangoproject.com/ko/4.0/topics/auth/customizing/#substituting-a-custom-user-model
+
+AUTH_USER_MODEL = "accounts.User"
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -113,3 +117,8 @@ STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# 로그인 후에 이동할 주소
+LOGIN_REDIRECT_URL = "/blog/"
+# 로그아웃 후에 이동할 주소
+LOGOUT_REDIRECT_URL="/blog/"

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load bootstrap5 %}
+
+{% block content %}
+    <h2>{{ post.title }}</h2>
+    <div class="card">
+        <div class="container">
+            {{ post.content }}
+        </div>
+    </div>
+    <div class="comment-list">
+        {% for comment in post.comment_set.all %}
+            <div class="comment">
+                작성자: {{ comment.author }}
+                {{ comment.content|linebreaks }}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
