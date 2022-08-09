@@ -11,6 +11,7 @@ class PostListView(ListView):
     """Blog List View"""
     model = Post
     paginate_by = 4
+    ordering = ['-created_at']
 
 post_list = PostListView.as_view()
 
