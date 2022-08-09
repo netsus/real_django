@@ -1,16 +1,17 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.shortcuts import resolve_url
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 from blog.forms import PostForm
 from blog.models import Post
 
 
-class BlogListView(ListView):
+class PostListView(ListView):
     """Blog List View"""
     model = Post
     paginate_by = 4
 
-post_list = BlogListView.as_view()
+post_list = PostListView.as_view()
 
 
 class PostDetailView(LoginRequiredMixin, DetailView):
@@ -27,3 +28,14 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 post_create = PostCreateView.as_view()
 
+class PostUpdateView(UserPassesTestMixin, UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = "blog/blog_form.html"
+
+    def test_func(self):
+        return self.request.user == self.get_object().author
+
+
+
+post_edit = PostUpdateView.as_view()

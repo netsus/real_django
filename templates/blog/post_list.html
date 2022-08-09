@@ -2,13 +2,20 @@
 {% load bootstrap5 %}
 
 {% block content %}
+    <h1>글 목록</h1>
+    <br>
     {% for post in post_list %}
         <div class="card">
-            <a href="{% url "blog:post" post.pk %}">
-                {{ post.id }}, {{ post.title }}
-            </a>
+            <div class="card-body">
+                <p>
+                    글 번호: {{ post.id }}
+                    <a href="{% url "blog:post" post.pk %}">
+                        {{ post.title }}
+                    </a>
+                </p>
+            </div>
         </div>
     {% endfor %}
-
+    <br>
     {% bootstrap_pagination page_obj %}
 {% endblock %}

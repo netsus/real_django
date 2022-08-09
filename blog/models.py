@@ -7,10 +7,11 @@ from django.urls import reverse
 class Post(models.Model):
     title=models.CharField(max_length=100)
     content=models.TextField()
+    author=models.ForeignKey("accounts.User", default=1, on_delete=models.CASCADE)
     tag_set=models.ManyToManyField("Tag",blank=True)
 
     def get_absolute_url(self):
-        return reverse("blog:post")
+        return reverse("blog:post", args=[self.pk])
 
     def __str__(self):
         return self.title
