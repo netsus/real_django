@@ -9,6 +9,7 @@
                 작성자: {{ post.author }}
                 {% if user == post.author %}
                     <a href="{% url "blog:post_edit" post.pk %}" class="btn btn-outline-info">수정하기</a>
+                    <a href="{% url "blog:post_delete" post.pk %}" class="btn btn-outline-danger">삭제하기</a>
                 {% endif %}
             </div>
         </div>

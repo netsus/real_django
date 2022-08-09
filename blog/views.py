@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import resolve_url
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.urls import reverse_lazy, reverse
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from blog.forms import PostForm
 from blog.models import Post
@@ -36,6 +37,13 @@ class PostUpdateView(UserPassesTestMixin, UpdateView):
     def test_func(self):
         return self.request.user == self.get_object().author
 
-
-
 post_edit = PostUpdateView.as_view()
+
+class PostDeleteView(UserPassesTestMixin, DeleteView):
+    model = Post
+    success_url = reverse_lazy("blog:post_list")
+
+    def test_func(self):
+        return self.request.user == self.get_object().author
+
+post_delete = PostDeleteView.as_view()
