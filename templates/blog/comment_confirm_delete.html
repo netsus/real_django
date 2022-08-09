@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <p class="alert alert-danger">
+        {{ comment.content}}
+    <hr>
+        댓글을 정말 삭제하시렵니까?
+    </p>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="submit" value="드가자~" class="btn btn-danger">
+    </form>
+{% endblock %}

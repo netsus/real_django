@@ -22,11 +22,41 @@
 
     <p>댓글 ({{ post.comment_set.all.count }})</p>
 
+    <form action="{% url "blog:comment_create" post.pk %}" method="post" novalidate>
+        {% csrf_token%}
+        {% bootstrap_form comment_form layout="inline" %}
+        <input type="submit" value="저장" class="btn btn-danger mt-2">
+    </form>
+
+
     <div class="comment-list">
         {% for comment in post.comment_set.all %}
-            <div class="card">
-                작성자: {{ comment.author }}
-                {{ comment.content|linebreaks }}
+            <div class="card mb-4">
+              <div class="card-body">
+                  <div class="d-flex flex-row justify-content-between">
+                      <div class="justify-content-start">
+                        <p>{{ comment.content|linebreaks }}</p>
+                      </div>
+                      <div class="justify-content-end">
+                          {% if user == comment.author %}
+                              <a href="{% url "blog:comment_edit" post.pk comment.pk %}" class="btn btn-outline-info">수정하기</a>
+                          {% endif %}
+                      </div>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                  <div class="d-flex flex-row align-items-center">
+                    <img src="https://thumbs.dreamstime.com/b/person-icon-creative-trendy-colorful-round-button-illustration-isolated-156511182.jpg" alt="avatar" width="25"
+                      height="25" />
+                    <p class="small mb-0 ms-2">작성자: {{ comment.author }}</p>
+                  </div>
+                      <div class="d-flex flex-row align-items-center">
+                          {% if user == comment.author %}
+                              <a href="{% url "blog:comment_delete" post.pk comment.pk %}" class="btn btn-outline-danger">삭제하기</a>
+                          {% endif %}
+                  </div>
+
+                </div>
+              </div>
             </div>
         {% endfor %}
     </div>
