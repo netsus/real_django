@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -78,10 +78,20 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("DJANGO_DB_NAME", "djangosample"),
+        "USER": os.environ.get("DJANGO_DB_USERNAME", "sampleuser"),
+        "PASSWORD": os.environ.get("DJANGO_DB_PASSWORD", "samplesecret"),
+        "HOST": os.environ.get("DJANGO_DB_HOST", "localhost"),
+        "PORT": os.environ.get("DJANGO_DB_PORT", "5432"),
     }
 }
 
@@ -124,3 +134,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_REDIRECT_URL = "/blog/"
 # 로그아웃 후에 이동할 주소
 LOGOUT_REDIRECT_URL="/blog/"
+
+if DEBUG:
+    ALLOWED_HOSTS += [
+        "*",
+    ]
