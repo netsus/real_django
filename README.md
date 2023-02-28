@@ -1,5 +1,9 @@
 # real_django
-간단한 블로그 사이트
+
+<img width="1109" alt="image" src="https://user-images.githubusercontent.com/57648890/221799540-92f174f0-03cf-4655-9788-efef2b848c01.png">
+
+
+- 간단한 블로그 사이트
 
 
 ## docker-compose up
